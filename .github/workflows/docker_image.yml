@@ -1,0 +1,26 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: docker login
+      env:
+        DOCKER_USER: ${{secrets.DOCKERHUB_USER}}
+        DOCKER_PASS: ${{secrets.DOCKERHUB_PASS}}
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASS
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --build-arg FULL_CHAIN_PEM=${{ secrets.FULL_CHAIN_PEM }} --build-arg PRIV_KEY_PEM=${{ secrets.PRIV_KEY_PEM }} --build-arg NGINX_PROXY_PASS=${{ secrets.NGINX_PROXY_PASS }} --tag danielgara/nginx-ssl:latest
+      
+    - name: Docker Push
+      run: docker push danielgara/nginx-ssl
