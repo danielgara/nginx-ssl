@@ -4,8 +4,6 @@ FROM nginx
 # Copy the custom nginx configuration files
 COPY . .
 
-COPY .env.example .env
-
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY ssl/fullchain.pem /etc/nginx/ssl/fullchain.pem
 COPY ssl/privkey.pem /etc/nginx/ssl/privkey.pem
