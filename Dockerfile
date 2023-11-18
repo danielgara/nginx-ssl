@@ -12,7 +12,7 @@ COPY ssl/privkey.pem /etc/nginx/ssl/privkey.pem
 COPY ssl.conf /etc/nginx/ssl.conf
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
-# Set execute permissions for the entrypoint script 
+# Set execute permissions for the entrypoint script
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Expose ports 80 and 443
