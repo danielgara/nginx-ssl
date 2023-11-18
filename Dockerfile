@@ -3,6 +3,14 @@ FROM nginx
 
 # Copy the custom nginx configuration files
 COPY . .
+
+ARG FULL_CHAIN_PEM
+ENV FULL_CHAIN_PEM=$FULL_CHAIN_PEM
+ARG PRIV_KEY_PEM
+ENV PRIV_KEY_PEM=$PRIV_KEY_PEM
+ARG NGINX_PROXY_PASS
+ENV NGINX_PROXY_PASS=$NGINX_PROXY_PASS
+
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY ssl/fullchain.pem /etc/nginx/ssl/fullchain.pem
 COPY ssl/privkey.pem /etc/nginx/ssl/privkey.pem
